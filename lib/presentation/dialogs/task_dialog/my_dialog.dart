@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:timeline/dialogs/my_dialog_text_field.dart';
-import 'package:timeline/dialogs/my_dialog_time_field.dart';
-import 'package:timeline/dialogs/my_dialog_title.dart';
+import 'package:timeline/presentation/dialogs/task_dialog/components/my_dialog_text_field.dart';
+import 'package:timeline/presentation/dialogs/task_dialog/components/my_dialog_time_field.dart';
+import 'package:timeline/presentation/dialogs/task_dialog/components/my_dialog_title.dart';
+import 'package:timeline/resources/app_colors.dart';
 import 'package:timeline/resources/storage.dart';
-import 'package:timeline/widgets/buttons/done_button.dart';
+import 'package:timeline/presentation/widgets/buttons/done_button.dart';
 
 class MyDialog extends StatefulWidget {
-  final void Function() _changeHomeScreen;
+  final VoidCallback _changeTaskScreen;
 
-  const MyDialog(this._changeHomeScreen);
+  const MyDialog(this._changeTaskScreen, {super.key});
 
   @override
   State<MyDialog> createState() => _MyDialogState();
@@ -25,18 +26,6 @@ class _MyDialogState extends State<MyDialog> {
     _detailsController.dispose();
     _timeController.dispose();
     super.dispose();
-  }
-
-  void addingCardInfo() {
-    final Map<String, String> task = {
-      'name': _nameController.text,
-      'details': _detailsController.text,
-      'time': _timeController.text,
-    };
-
-    MyStorage.tasks.add(task);
-    widget._changeHomeScreen();
-    Navigator.of(context).pop();
   }
 
   @override
@@ -60,7 +49,7 @@ class _MyDialogState extends State<MyDialog> {
               ),
               height: 300,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.secondary,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Column(
@@ -75,11 +64,27 @@ class _MyDialogState extends State<MyDialog> {
             ),
             Positioned(
               bottom: 220.0,
-              child: DoneButton(addingCardInfo),
+              child: DoneButton(onTap: addingCardInfo),
             ),
           ],
         ),
       ),
     );
+  }
+
+  void addingCardInfo() {
+    if (_nameController.text == '' && _detailsController.text == '') {
+      Navigator.of(context).pop();
+      return;
+    }
+    final Map<String, String> task = {
+      'name': _nameController.text,
+      'details': _detailsController.text,
+      'time': _timeController.text,
+    };
+
+    MyStorage.tasks.add(task);
+    widget._changeTaskScreen();
+    Navigator.of(context).pop();
   }
 }

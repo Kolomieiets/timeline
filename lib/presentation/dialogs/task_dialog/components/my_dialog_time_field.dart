@@ -1,21 +1,10 @@
 import 'package:flutter/material.dart';
 
 class MyDialogTimeField extends StatelessWidget {
-  final _textController;
+  final TextEditingController _textController;
   final String _label;
   
-  const MyDialogTimeField(this._label, this._textController);
-
-  void _presentTimePicker(BuildContext context) async {
-    final TimeOfDay? time = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.now(),
-    );
-    if (time != null) {
-      // ignore: use_build_context_synchronously
-      _textController.text = time.format(context);
-    }
-  }
+  const MyDialogTimeField(this._label, this._textController, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +17,13 @@ class MyDialogTimeField extends StatelessWidget {
           controller: _textController,
         ),
         InkWell(
-          child: SizedBox(
+          child: const SizedBox(
             height: 60,
             width: 300,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
+              children: [
                 Icon(Icons.arrow_forward_ios),
               ],
             ),
@@ -43,5 +32,16 @@ class MyDialogTimeField extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _presentTimePicker(BuildContext context) async {
+    final TimeOfDay? time = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (time != null) {
+      // ignore: use_build_context_synchronously
+      _textController.text = time.format(context);
+    }
   }
 }

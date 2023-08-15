@@ -1,10 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:timeline/resources/app_colors.dart';
 
 class DateGenerator extends StatelessWidget {
-  List<DateTime> days = [];
+  const DateGenerator({super.key});
 
-  DateGenerator(this.days);
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: dateRow(dateList()),
+    );
+  }
+
+  List<DateTime> dateList() {
+    List<DateTime> date = [];
+    for (int i = -2; i < 3; ++i) {
+      DateTime dateCount = DateTime.now().subtract(
+        Duration(days: i),
+      );
+      date.add(dateCount);
+    }
+    return date;
+  }
 
   List<Widget> dateRow(List<DateTime> date) {
     List<Widget> containers = [];
@@ -15,8 +34,8 @@ class DateGenerator extends StatelessWidget {
           children: [
             Text(
               DateFormat.E().format(date[i]),
-              style: const TextStyle(
-                color: Colors.white,
+              style: TextStyle(
+                color: AppColors.secondary,
                 fontSize: 20,
                 fontWeight: FontWeight.w300,
               ),
@@ -32,7 +51,7 @@ class DateGenerator extends StatelessWidget {
                   width: 30,
                   decoration: BoxDecoration(
                     color: DateTime.now().day == date[i].day
-                        ? Colors.white
+                        ? AppColors.secondary
                         : Colors.transparent,
                     borderRadius: BorderRadius.circular(30),
                   ),
@@ -41,8 +60,8 @@ class DateGenerator extends StatelessWidget {
                   date[i].day.toString(),
                   style: TextStyle(
                     color: DateTime.now().weekday == date[i].weekday
-                        ? const Color.fromRGBO(99, 149, 246, 1.0)
-                        : Colors.white,
+                        ? AppColors.main
+                        : AppColors.secondary,
                     fontSize: 15,
                   ),
                 )
@@ -53,14 +72,5 @@ class DateGenerator extends StatelessWidget {
       );
     }
     return containers;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: dateRow(days),
-    );
   }
 }

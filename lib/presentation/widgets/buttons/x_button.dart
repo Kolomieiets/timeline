@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:timeline/resources/app_colors.dart';
 
 class XButton extends StatelessWidget {
   const XButton({super.key});
@@ -10,10 +11,13 @@ class XButton extends StatelessWidget {
         height: 25,
         width: 25,
         decoration: BoxDecoration(
-          color: const Color.fromRGBO(235, 142, 185, 1.0),
+          color: AppColors.lightAccent,
           borderRadius: BorderRadius.circular(20),
         ),
-        child: const Icon(Icons.close, color: Colors.white),
+        child: Icon(
+          Icons.close,
+          color: AppColors.secondary,
+        ),
       ),
       onTap: () => Navigator.of(context).pop(),
     );

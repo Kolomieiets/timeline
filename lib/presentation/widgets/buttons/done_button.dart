@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:timeline/resources/app_colors.dart';
 
 class DoneButton extends StatelessWidget {
 
-  final void Function() info;
+  final void Function() onTap;
 
-  const DoneButton(this.info);
+  const DoneButton({required this.onTap, super.key});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: info,
+      onTap: onTap,
       child: Container(
         height: 60,
         width: 60,
         decoration: BoxDecoration(
-          color: const Color.fromRGBO(99, 149, 246, 1.0),
+          color: AppColors.deepMain,
           borderRadius: BorderRadius.circular(60),
         ),
-        child: const Icon(
+        child: Icon(
           Icons.check,
-          color: Colors.white,
+          color: AppColors.secondary,
           size: 40.0,
         ),
       ),

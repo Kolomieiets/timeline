@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:timeline/dialogs/my_dialog.dart';
+import 'package:timeline/presentation/dialogs/task_dialog/my_dialog.dart';
+import 'package:timeline/resources/app_colors.dart';
 
 class PlusButton extends StatelessWidget {
-  final void Function() _changeHomeScreen;
+  final void Function() onTap;
 
-  PlusButton(this._changeHomeScreen);
+  const PlusButton({required this.onTap, super.key});
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-        backgroundColor: const Color.fromRGBO(99, 149, 246, 1.0),
+        backgroundColor: AppColors.deepMain,
         onPressed: () => showDialog(
           barrierDismissible: false,
           context: context,
-          builder: (_) => MyDialog(_changeHomeScreen),
+          builder: (_) => MyDialog(onTap),
         ),
         child: const Icon(Icons.add),
       );

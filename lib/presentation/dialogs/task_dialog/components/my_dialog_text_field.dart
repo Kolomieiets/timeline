@@ -1,19 +1,10 @@
 import 'package:flutter/material.dart';
 
 class MyDialogTextField extends StatelessWidget {
-  final _textController;
+  final TextEditingController _textController;
   final String _label;
 
-  const MyDialogTextField(this._label, this._textController);
-
-  // void _submitTask() {
-  //   if (_nameController.text.isEmpty) {
-  //     return;
-  //   } else {
-  //     final String taskName = _nameController.text;
-  //     final String detailsName = _detailsController.text;
-  //   }
-  // }
+  const MyDialogTextField(this._label, this._textController, {super.key});
 
   @override
   Widget build(BuildContext context) {
